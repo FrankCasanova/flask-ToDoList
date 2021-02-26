@@ -1,23 +1,40 @@
-from flask import Flask, request, make_response,redirect, render_template
+from flask import Flask, request, make_response,redirect, render_template, session
+from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)#-----------------------esto es necesario 
+bootstrap = Bootstrap(app) #---------------la instancia de bootstrap recive la aplicación
+
+app.config['SECRET_KEY'] = 'SUPER SECRETO' #--esto se usa como primer paso para que la ip de nuestros usuarios sean seguras
+
+
+
+
 
 todos = ['Comprar café','Enviar solicitud de comprar','Entregar Video del producto']
+
+
+
+@app.errorhandler(404)
+def not_found(error):
+    return render_template('404.html', error=error)
+
+
 
 @app.route('/')
 def index():
     user_ip = request.remote_addr
 
     response = make_response(redirect('/hello'))#entregamos una respuesta, que redirige a la página hello
-    response.set_cookie('user_ip', user_ip)#la coockie guarda la IP del usuario.
+    # response.set_cookie('user_ip', user_ip)#la coockie guarda la IP del usuario.
+    session['user_ip'] = user_ip
 
     return response #entregamos la respuesta
 
 
 @app.route('/hello')#-----------------------------esta es la pagina en la que inicia
 def hello():
-    user_ip = request.cookies.get('user_ip') #usa la cookie con la IP del usuario mara mostrarla
-    user_ip = request.remote_addr#-----------con esto obtenemos la ip del usuario
+    user_ip = session.get('user_ip') #usa la cookie con la IP del usuario mara mostrarla
+    #user_ip = request.remote_addr#-----------con esto obtenemos la ip del usuario
   
     context={                    #este es el contexto de la aplicación, son los atributos que tomará el render_template para renderizar el template
         'user_ip' : user_ip,

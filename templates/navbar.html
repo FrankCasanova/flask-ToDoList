@@ -1,8 +1,16 @@
-<nav>
+<!-- <nav>
     <ul>
         <img src="{{url_for('static', filename='images/platzi.png')}}" alt="logo de platzi">
-        <l ><a href="{{ url_for('index')}}">Ir a inicio</a></li>
+        <li ><a href="{{ url_for('index')}}">Ir a inicio</a></li>
         <li><a href="https://google.com" target="blank">Ir a Google</a></li>
     </ul>
-</nav>
+</nav> -->
 <!-- esto es lo que se exportará como barra de navegación-->
+
+<ul class="nav nav-pills">
+    
+    <img src="{{url_for('static', filename='images/platzi.png')}}" alt="logo de platzi">
+    <li role="presentation" class="active"><a href="{{ url_for('index')}}">Home</a></li>
+    <li role="presentation"><a href="https://google.com" target="blank">ir a google</a></li>
+    
+  </ul>

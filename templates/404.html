@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %} <!-- estos bloques representan lo que quieres que se represente en un archivo html que tenga el bloque-->
+    {{super()}}
+    ULTRA MEGA ERROR!
+{%endblock%}
+
+{% block content%}
+<h1>LO SIENTO MUCHO MÁQUINA, LA PÁGINA NO SE ENCUENTRA</h1>
+<P>{{ error }}</P>
+{% endblock %}
