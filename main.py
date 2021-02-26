@@ -5,6 +5,7 @@ from flask_wtf import FlaskForm
 from wtforms.fields import StringField, PasswordField
 from wtforms.fields.simple import SubmitField
 from wtforms.validators import DataRequired
+from flask import flash
 
 
 
@@ -62,6 +63,8 @@ def hello():
     if login_form.validate_on_submit():
         user_name = login_form.user_name.data
         session['user_name'] = user_name
+
+        flash('Nombre de usuario registrado con éxito') #los flashes hay que renderearlos en el html
 
         return redirect(url_for('index'))
 
