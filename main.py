@@ -1,4 +1,4 @@
-from flask import Flask, request, make_response,redirect
+from flask import Flask, request, make_response,redirect, render_template
 
 app = Flask(__name__)#-----------------------esto es necesario 
 
@@ -16,7 +16,7 @@ def index():
 def hello():
     user_ip = request.cookies.get('user_ip') #usa la cookie con la IP del usuario mara mostrarla
     user_ip = request.remote_addr#-----------con esto obtenemos la ip del usuario
-    return f'La aplicación ahora debe funcionar, su ip es {user_ip}'
+    return render_template('hello.html', user_ip=user_ip) #indicamos que queremos renderizar este template, y como parametro le damos la IP del usuario
 
 
 # if __name__ == "__main__":
