@@ -1,0 +1,24 @@
+{% extends 'base.html' %} <!-- esta es la estructura base de nuestra pagina html-->
+{% import 'macros.html' as macros %} <!-- esta es la ruta desde donde exportamos nuestras macros, que son trozos de código que se pueden implantar en nuestras páginas-->
+
+
+{% block title %} <!-- estos bloques representan lo que quieres que se represente en un archivo html que tenga el bloque-->
+    {{super()}}
+    Welcome
+{%endblock%}
+{%block content%} <!-- este constexto se importa desde main.py, es un diccionario-->
+    {%if user_ip %}
+        <h1>hola, estoy escribiendo esto con templates y tu ip es {{user_ip}}</h1>
+    {% else %}
+        <a href="{{ url_for('index') }}">ir a inicio</a> <!-- esto llama a la url index definida en main.py-->
+    {% endif %}
+
+    <ul>
+        {% for todo in todos %}
+            {{ macros.render_todo(todo) }} <!-- esto llama a la macro-->
+        {% endfor %}    
+
+    </ul>
+
+{%endblock%}
+

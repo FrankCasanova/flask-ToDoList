@@ -17,7 +17,7 @@ def index():
 @app.route('/hello')#-----------------------------esta es la pagina en la que inicia
 def hello():
     user_ip = request.cookies.get('user_ip') #usa la cookie con la IP del usuario mara mostrarla
-    #user_ip = request.remote_addr#-----------con esto obtenemos la ip del usuario
+    user_ip = request.remote_addr#-----------con esto obtenemos la ip del usuario
   
     context={                    #este es el contexto de la aplicación, son los atributos que tomará el render_template para renderizar el template
         'user_ip' : user_ip,
