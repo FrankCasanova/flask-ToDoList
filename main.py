@@ -2,7 +2,7 @@ from flask import Flask, request, make_response,redirect, render_template
 
 app = Flask(__name__)#-----------------------esto es necesario 
 
-todos = ['todo1','todo2','todo3']
+todos = ['Comprar café','Enviar solicitud de comprar','Entregar Video del producto']
 
 @app.route('/')
 def index():
@@ -18,6 +18,7 @@ def index():
 def hello():
     user_ip = request.cookies.get('user_ip') #usa la cookie con la IP del usuario mara mostrarla
     #user_ip = request.remote_addr#-----------con esto obtenemos la ip del usuario
+  
     context={                    #este es el contexto de la aplicación, son los atributos que tomará el render_template para renderizar el template
         'user_ip' : user_ip,
         'todos': todos
