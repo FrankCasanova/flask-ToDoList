@@ -1,17 +1,32 @@
 {% extends 'base.html' %} <!-- esta es la estructura base de nuestra pagina html-->
 {% import 'macros.html' as macros %} <!-- esta es la ruta desde donde exportamos nuestras macros, que son trozos de código que se pueden implantar en nuestras páginas-->
-
+{% import 'bootstrap/wtf.html' as wtf %}
 
 {% block title %} <!-- estos bloques representan lo que quieres que se represente en un archivo html que tenga el bloque-->
     {{super()}}
     Welcome
 {%endblock%}
-{%block content%} <!-- este constexto se importa desde main.py, es un diccionario-->
+<!-- este constexto se importa desde main.py, es un diccionario-->
+{%block content%}
+    {% if user_name %}
+        <h1>bienvenido, {{ user_name | capitalize }}</h1>
+    {% endif %}    
     {%if user_ip %}
-        <h1>hola, estoy escribiendo esto con templates y tu ip es {{user_ip}}</h1>
+        <h3>hola, estoy escribiendo esto con templates y tu ip es {{user_ip}}</h3>
     {% else %}
         <a href="{{ url_for('index') }}">ir a inicio</a> <!-- esto llama a la url index definida en main.py-->
     {% endif %}
+
+    <div class="container">
+        <!-- <form action="{{ url_for('hello') }}" method="POST">
+            {{ login_form.user_name }}
+            {{ login_form.user_name.label }} esto sirve para renderizar el label -->
+
+            {{ wtf.quick_form(login_form) }}
+
+
+        <!-- </form> -->
+    </div>
 
     <ul>
         {% for todo in todos %}
