@@ -6,7 +6,7 @@ from wtforms.fields import StringField, PasswordField
 from wtforms.fields.simple import SubmitField
 from wtforms.validators import DataRequired
 from flask import flash
-
+import unittest
 
 
 app = Flask(__name__)#-----------------------esto es necesario 
@@ -28,7 +28,14 @@ class LoginForm(FlaskForm): #esto sirve para crear formularios, en este caso, de
    
 
 
-    pass
+@app.cli.command()
+def test():
+
+    tests = unittest.TestLoader().discover('tests')
+    unittest.TextTestRunner().run(tests)
+
+
+    
 
 @app.errorhandler(404)
 def not_found(error):
