@@ -1,10 +1,11 @@
-from flask import Flask
+from flask import Flask, request
 
-app = Flask(__name__)
+app = Flask(__name__)#-----------------------esto es necesario 
 
-@app.route('/')
+@app.route('/')#-----------------------------esta es la pagina en la que inicia
 def hello():
-    return 'hello world Flask'
+    user_ip = request.remote_addr#-----------con esto obtenemos la ip del usuario
+    return f'La aplicación ahora debe funcionar, su ip es {user_ip}'
 
 
 # if __name__ == "__main__":
