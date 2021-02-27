@@ -1,34 +1,21 @@
-from flask import Flask, request, make_response,redirect, render_template, session
+from app import create_app
+from flask import request, make_response,redirect, render_template, session
 from flask.helpers import url_for 
-from flask_bootstrap import Bootstrap
-from flask_wtf import FlaskForm
-from wtforms.fields import StringField, PasswordField
-from wtforms.fields.simple import SubmitField
-from wtforms.validators import DataRequired
 from flask import flash
 import unittest
+from app.form import LoginForm
+from app import create_app
 
-
-app = Flask(__name__)#-----------------------esto es necesario 
-bootstrap = Bootstrap(app) #---------------la instancia de bootstrap recive la aplicación
-
-app.config['SECRET_KEY'] = 'SUPER SECRETO' #--esto se usa como primer paso para que la ip de nuestros usuarios sean seguras
-
-
+app = create_app()
 
 
 
 todos = ['Comprar café','Enviar solicitud de comprar','Entregar Video del producto']
 
 
-class LoginForm(FlaskForm): #esto sirve para crear formularios, en este caso, de login.
-    user_name = StringField('Nombre de usuario', validators=[DataRequired()]) #importado de fields
-    password = PasswordField('Password', validators=[DataRequired()]) #con validación de datos
-    submit = SubmitField('Enviar') #botón para enviar los datos
    
 
-
-@app.cli.command()
+@app.cli.command() #Command Line Interface. es un comando de términal
 def test():
 
     tests = unittest.TestLoader().discover('tests')
