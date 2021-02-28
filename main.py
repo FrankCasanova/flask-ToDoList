@@ -41,26 +41,18 @@ def index():
     return response #entregamos la respuesta
 
 
-@app.route('/hello', methods=['GET', 'POST'])#-----------------------------esta es la pagina en la que inicia
+@app.route('/hello', methods=['GET'])#-----------------------------esta es la pagina en la que inicia
 def hello():
     user_ip = session.get('user_ip') #usa la cookie con la IP del usuario mara mostrarla
-    #user_ip = request.remote_addr#-----------con esto obtenemos la ip del usuario
-    login_form = LoginForm()
+    # user_ip = request.remote_addr#-----------con esto obtenemos la ip del usuario
     user_name = session.get('user_name')
     context={                    #este es el contexto de la aplicación, son los atributos que tomará el render_template para renderizar el template
         'user_ip' : user_ip,
-        'todos': todos,
-        'login_form': login_form,
+        'todos': todos,  
         'user_name' : user_name
     }
 
-    if login_form.validate_on_submit():
-        user_name = login_form.user_name.data
-        session['user_name'] = user_name
-
-        flash('Nombre de usuario registrado con éxito') #los flashes hay que renderearlos en el html
-
-        return redirect(url_for('index'))
+    
 
 
     return render_template('hello.html', **context)  #indicamos que queremos renderizar este template, y como parametro le damos la IP del usuario

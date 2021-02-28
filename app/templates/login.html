@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %} 
+
+
+{% block title %} <!-- estos bloques representan lo que quieres que se represente en un archivo html que tenga el bloque-->
+    {{super()}}
+    ULTRA MEGA ERROR!
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        {{ wtf.quick_form(login_form) }}
+    </div>
+{% endblock %}
