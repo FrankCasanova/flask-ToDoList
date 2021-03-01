@@ -41,7 +41,7 @@ def login():
     return render_template('login.html', **context)
 
 @auth.route('signup', methods=['GET', 'POST'])
-def singup():
+def signup():
     signup_form = LoginForm()
     context = {
         'signup_form': signup_form
@@ -63,12 +63,11 @@ def singup():
             flash('Bienvenido')
             return redirect(url_for('hello'))
 
-    else:
-        flash('El usuario ya existe')        
+        else:
+            flash('El usuario ya existe')        
 
 
-    return render_template('signup.html', **context)
-    pass    
+    return render_template('signup.html', **context)   
 
 @auth.route('logout')
 @login_required

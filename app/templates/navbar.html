@@ -10,11 +10,16 @@
 <ul class="nav nav-pills">
     
     {% if current_user.is_authenticated %}
+    <li role="presentation" class="active"><a href="{{ url_for('index')}}">Home</a></li>
     <li role="presentation" class="active"><a href="{{ url_for('auth.logout')}}">Logout</a></li>
+    <li role="presentation"><a href="https://google.com" target="blank">ir a google</a></li>
+    {% else %}
+    <li role="presentation" class="active"><a href="{{ url_for('index')}}">Home</a></li>
+    <li role="presentation"><a href="{{ url_for('auth.signup') }}" target="blank">Registrarse</a></li>
+    <li role="presentation"><a href="https://google.com" target="blank">ir a google</a></li>
+    
     {% endif %}
 
-    <img src="{{url_for('static', filename='images/platzi.png')}}" alt="logo de platzi">
-    <li role="presentation" class="active"><a href="{{ url_for('index')}}">Home</a></li>
-    <li role="presentation"><a href="https://google.com" target="blank">ir a google</a></li>
+    
     
   </ul>

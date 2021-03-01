@@ -12,7 +12,7 @@ class UserModel(UserMixin):
     def __init__(self, user_data) -> None:
 
         """
-        :param user_data: UserDAta
+        :param user_data: UserData
         """
 
         self.id = user_data.user_name
