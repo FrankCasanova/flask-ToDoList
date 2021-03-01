@@ -23,13 +23,20 @@
         {{ wtf.quick_form(todo_form)  }}
     </div>
 
+    <ul class="list-group">
+        {% for todo in todos %}
+            {{ macros.render_todo(todo, detele_form) }} <!-- esto llama a la macro-->
+        {% endfor %}
+        
+    </ul>
 
-    <ul>
+
+    <!-- <ul>
         {% for todo in todos %}
             {{ macros.render_todo(todo) }} <!-- esto llama a la macro-->
-        {% endfor %}    
+        <!-- {% endfor %}     -->
 
-    </ul>
+    <!-- </ul> -->
 
 {%endblock%}
 

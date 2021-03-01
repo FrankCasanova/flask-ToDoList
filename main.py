@@ -4,9 +4,9 @@ from flask.helpers import url_for
 from flask import flash
 from flask_login import login_required, current_user
 import unittest
-from app.form import  TodoForm
+from app.form import  TodoForm, DeleteTodoForm
 from app import create_app
-from app.firestore_service import get_users, get_todos, put_todo
+from app.firestore_service import get_users, get_todos, put_todo, delete_todo
 
 app = create_app()
 
@@ -49,11 +49,13 @@ def hello():
     # user_ip = request.remote_addr#-----------con esto obtenemos la ip del usuario
     user_name = current_user.id #session.get('user_name')
     todo_form = TodoForm()
+    delete_form = DeleteTodoForm()
     context={                    #este es el contexto de la aplicación, son los atributos que tomará el render_template para renderizar el template
         'user_ip' : user_ip,
         'todos': get_todos(user_id=user_name),  
         'user_name' : user_name,
         'todo_form': todo_form,
+        'delete_form': delete_form,
     }
 
     if todo_form.validate_on_submit():
@@ -63,16 +65,23 @@ def hello():
 
         return redirect(url_for('hello'))
 
-
-
-    
-
-
-    
-
-
     return render_template('hello.html', **context)  #indicamos que queremos renderizar este template, y como parametro le damos la IP del usuario
-                                                     #los 2 asteriscos expande el diccionario, muy util para renderizar el contexto sin incluir punto context.user_ip
+                                                    #los 2 asteriscos expande el diccionario, muy util para renderizar el contexto sin incluir punto context.user_ip
+ 
+
+@app.route('/todos/delete/<todo_id>', methods=['POST'])
+def delete(todo_id):
+    user_id = current_user.id
+    delete_todo(user_id=user_id, todo_id=todo_id)
+
+    return redirect(url_for('hello'))
+
+    
+
+
+    
+
+
 
 
 # if __name__ == "__main__":
