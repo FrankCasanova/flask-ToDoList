@@ -69,7 +69,7 @@ def hello():
                                                     #los 2 asteriscos expande el diccionario, muy util para renderizar el contexto sin incluir punto context.user_ip
  
 
-@app.route('/todos/delete/<todo_id>', methods=['POST'])
+@app.route('/todos/delete/<todo_id>', methods=['POST']) #generador de ruta
 def delete(todo_id):
     user_id = current_user.id
     delete_todo(user_id=user_id, todo_id=todo_id)

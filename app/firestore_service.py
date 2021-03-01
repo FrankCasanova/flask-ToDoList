@@ -29,5 +29,6 @@ def put_todo(user_id,description):
     todos_collection_ref.add({'description':description, 'done':False})
 
 def delete_todo(user_id, todo_id):
-    todo_ref = db.document(f'users/{user_id}/to-dos/{todo_id}')  
+    todo_ref = db.document(f'users/{user_id}/to-dos/{todo_id}')
+    todo_ref.delete()  
 
