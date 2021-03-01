@@ -60,7 +60,7 @@ def hello():
 
         flash('tu tarea se creó con éxito')
 
-        return redirect(url_for('/hello'))
+        return redirect(url_for('hello'))
 
     return render_template('hello.html', **context)  #indicamos que queremos renderizar este template, y como parametro le damos la IP del usuario
                                                     #los 2 asteriscos expande el diccionario, muy util para renderizar el contexto sin incluir punto context.user_ip
@@ -71,14 +71,14 @@ def delete(todo_id):
     user_id = current_user.id
     delete_todo(user_id=user_id, todo_id=todo_id)
 
-    return redirect(url_for('/hello'))
+    return redirect(url_for('hello'))
 
 @app.route('/todos/update/<todo_id>/<int:done>', methods=['POST'])
 def update(todo_id, done):
     user_id = current_user.id
     update_todo(user_id=user_id, todo_id=todo_id, done=done)
     
-    return redirect(url_for('/hello'))
+    return redirect(url_for('hello'))
 
     
 
