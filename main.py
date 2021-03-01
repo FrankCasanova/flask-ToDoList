@@ -4,9 +4,9 @@ from flask.helpers import url_for
 from flask import flash
 from flask_login import login_required, current_user
 import unittest
-from app.form import LoginForm
+from app.form import  TodoForm
 from app import create_app
-from app.firestore_service import get_users, get_todos
+from app.firestore_service import get_users, get_todos, put_todo
 
 app = create_app()
 
@@ -42,17 +42,28 @@ def index():
     return response #entregamos la respuesta
 
 
-@app.route('/hello', methods=['GET'])#-----------------------------esta es la pagina en la que inicia
+@app.route('/hello', methods=['GET', 'POST'])#-----------------------------esta es la pagina en la que inicia
 @login_required
 def hello():
     user_ip = session.get('user_ip') #usa la cookie con la IP del usuario mara mostrarla
     # user_ip = request.remote_addr#-----------con esto obtenemos la ip del usuario
     user_name = current_user.id #session.get('user_name')
+    todo_form = TodoForm()
     context={                    #este es el contexto de la aplicación, son los atributos que tomará el render_template para renderizar el template
         'user_ip' : user_ip,
         'todos': get_todos(user_id=user_name),  
-        'user_name' : user_name
+        'user_name' : user_name,
+        'todo_form': todo_form,
     }
+
+    if todo_form.validate_on_submit():
+        put_todo(user_id=user_name, description=todo_form.description.data)
+
+        flash('tu tarea se creó con éxito')
+
+        return redirect(url_for('hello'))
+
+
 
     
 
